@@ -1,0 +1,64 @@
+# Amazon Fire TV Omni QLED / Fire TV 4-Series smart TVs (AFTTIFF43, "brandenburg"), Fire OS 7.7.1.7 (Android 9).
+# Tested on a 43" Omni QLED (model AMZ_QL43F601A) on build PS7717.6741N.
+#
+# Base: cleanyourtv's examples/amazon-fire-tv-afttiff43 list (same model and build line), plus the ad,
+# telemetry and experiment packages from dumbtv's Fire OS 7.7.1.7 list.
+# Everything is DISABLED for user 0, never uninstalled; cleanyourtv's tools/restore.sh with this list undoes it.
+#
+# Apply:  TV_HOST=<tv ip> ../cleanyourtv/tools/disable.sh debloat.txt     (run from this repo)
+# Undo:   TV_HOST=<tv ip> ../cleanyourtv/tools/restore.sh debloat.txt com.amazon.tv.launcher
+#
+# Never on this list: com.amazon.tv.launcher (also hosts Settings), com.amazon.vizzini (draws an
+# undismissable "Unable to Detect Your Remote" window when disabled), com.amazon.firebat (Prime Video),
+# com.mediatek.tvinput (HDMI inputs), com.amazon.venezia (Appstore), AirPlay, casting, remote/Bluetooth.
+# Content recognition, telemetry and metrics (cleanyourtv)
+com.amazon.tv.acr                         # fingerprints what's on screen, HDMI included
+com.amazon.tv.fw.metrics
+com.amazon.neo.minerva
+com.amazon.neo.minerva.logcat
+com.amazon.wirelessmetrics.service
+com.amazon.perfcollection
+com.amazon.perfc
+com.amazon.dp.logger
+com.amazon.hybridadidservice              # advertising ID
+
+# More telemetry and experiments (dumbtv, tested on 7.7.1.7)
+com.amazon.logan
+com.amazon.ceviche                        # analytics upload pipeline
+com.amazon.hedwig                         # watch time / engagement
+com.amazon.spiderpork                     # metrics transport
+com.amazon.tv.developer.dataservice
+com.amazon.connectivitydiag
+com.amazon.ale                            # A/B experiments
+com.amazon.katoch                         # experiments
+com.amazon.device_remote_config_sync_service
+
+# Ads, shopping, retail demo, tutorials
+com.amazon.sneakpeek                      # autoplaying promos
+com.amazon.media.recommendations          # sponsored rows (dumbtv)
+com.amazon.privacypassservice             # ad-token service (dumbtv)
+com.amazon.tv.democontent.provider
+com.amazon.shoptv.client
+com.amazon.shoptv.firetv.client
+com.amazon.storm.lightning.tutorial
+com.amazon.tmm.tutorial
+com.amazon.systemnotices                  # Amazon promo notices (dumbtv)
+
+# Amazon apps: comment out any you use
+com.amazon.bueller.music                  # Amazon Music
+com.amazon.bueller.photos                 # Amazon Photos
+com.amazon.tv.localgallery
+com.amazon.gamehub                        # Luna / Game Hub
+com.amazon.minitv.android.app
+com.amazon.naatyam
+com.amazon.tahoe                          # Amazon Kids
+
+# Alexa extras (Alexa core kept)
+com.amazon.tv.alexaalerts
+com.amazon.tv.alexanotifications
+com.amazon.audiohome                      # Alexa Home Theater
+
+# Screensaver: NOT disabled. On this Fire OS 7 build Amazon's AmbientManagerService only starts its own
+# screensaver (com.amazon.tv.ftvambient hosting com.amazon.ftv.screensaver) and ignores any other
+# screensaver_components; with these two disabled the TV goes to sleep after 5 idle minutes instead.
+# My Home shows your photos itself when idle on the home screen (SlideshowActivity).
